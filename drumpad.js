@@ -59,10 +59,13 @@ function toggleBackgroundAudio(button) {
   } else {
     background_source = audio_context.createBufferSource();
     background_source.buffer = buffer_list["background"].buffer;
-    background_source.connect(audio_context.destination);
     background_source.loop = true;
     button.innerHtml = "Stop";
     background_source.noteOn(0);
+    var gainNode = audio_context.createGainNode();
+    background_source.connect(gainNode);
+    gainNode.connect(audio_context.destination); 
+    gainNode.gain.value = 0.1;
   }
 }
 
