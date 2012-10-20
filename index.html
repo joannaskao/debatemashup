@@ -7,6 +7,23 @@
   <script src="buffer-loader.js"></script>
   <script src="jquery-1.8.2.min.js"></script>
   <script src="drumpad.js"></script>
+  
+	<script>
+		$(document).ready(function () {
+		
+		
+			var letters = "QWERTYUIOPASDFGHJKLZXCVBNM";
+			
+			
+			for (var c=0; c<letters.length; c++) {
+			
+				var id = "key" + letters.charAt(c);
+				$("#" + id).append(
+					'<span>' + letters.charAt(c) + '</span>';
+				);
+			}
+		});
+		</script>
 
 </head>
 
