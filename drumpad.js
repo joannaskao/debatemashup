@@ -1,3 +1,4 @@
+var background_source;
 var tempo_sec = 0.5; //once every second
 var clock_start;
 var audio_context;
@@ -50,19 +51,18 @@ function metronome() {
   }
 }
 
-function toggleBackgroundAudio() {
-  if (background_source == null) {
-    background_source = audio_context.createBufferSource();
-    background_source.buffer = buffer_list["background"];
-    background_source.connect(audio_context.destination);
-    background_source.loop = true;
-  }
-  if (background_source.playbackState == 2) {
+function toggleBackgroundAudio(button) {
+  if (background_source && background_source.playbackState == 2) {
+    button.innerHtml = "Play";
     background_source.noteOff(0);
   } else {
+    background_source = audio_context.createBufferSource();
+    background_source.buffer = buffer_list["background"].buffer;
+    background_source.connect(audio_context.destination);
+    background_source.loop = true;
+    button.innerHtml = "Stop";
     background_source.noteOn(0);
   }
-
 }
 
 // ***** AudioContext Specific ********
@@ -159,15 +159,7 @@ function mapBufferToList(buffer, key) {
 }
 
 function preloadData() {
-/*
-  var handle = document.getElementById("sound-a");
-  var handle2 = document.getElementById("sound-b");;
-  //handle.play();
-  sound_library['a'] = handle;
-  sound_library['s'] = handle2;
-*/
-  //loadDataFromSource("a", "samples/bingos_left_change.mp3");;
-
+;
   var bufferLoader = new BufferLoader(
     audio_context,
     [
@@ -226,6 +218,13 @@ $(document).ready(function() {
     "keydown",
     function(e) {
       handleKeyPress(e);
+    },
+    false);
+
+  document.getElementById("toggle_music").addEventListener(
+    "click",
+    function(e) {
+      toggleBackgroundAudio(this);
     },
     false);
 
