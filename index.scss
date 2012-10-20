@@ -1,6 +1,6 @@
 $keySize: 90px;
 $keyMargin: $keySize * 0.05;
-$leftMargin: 2*$keySize;
+$leftMargin: 2*$keyMargin;
 $faintColor: #CCD1DB;
 $borderColor: #60769C;
 $borderWidth: 1pt;
@@ -46,12 +46,17 @@ body {
 }
 
 #keyboardContainer {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
 	position: absolute;
 	top: $topbarHeight + 2*$keyMargin;
+	z-index: -1;
 }
 
 .contentContainer {
-	margin-left: $leftMargin;
+	width: 11*$keySize + 20*$keyMargin;
+	margin: 0px auto;
 }
 		
 .keyboardRow {
@@ -65,6 +70,9 @@ body {
 .keyboardRow#row3 {
 	left: $keySize * 0.8;
 }
+.keyboardRow#row4 {
+	left: $keySize * 2.8 + 6*$keyMargin;
+}
 
 .keyboardKey {
 	float: left;
@@ -76,6 +84,10 @@ body {
 	background-color: $faintColor;
 	border-color: $borderColor;
 	@include roundedCorners;
+	
+	&#toggle_music {
+		width: 5*$keySize + 8*$keyMargin;
+	}
 	
 	.keyLetter {
 		position: relative;

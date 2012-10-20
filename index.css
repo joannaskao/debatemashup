@@ -14,22 +14,17 @@ body {
   height: 200px;
   z-index: -1; }
 
-#loadingscreen{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0, 0, 0, 0.85);
-    z-index:10;
-}
-
 #keyboardContainer {
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
   position: absolute;
-  top: 209px; }
+  top: 209px;
+  z-index: -1; }
 
 .contentContainer {
-  margin-left: 180px; }
+  width: 1080px;
+  margin: 0px auto; }
 
 .keyboardRow {
   display: block;
@@ -41,6 +36,9 @@ body {
 
 .keyboardRow#row3 {
   left: 72px; }
+
+.keyboardRow#row4 {
+  left: 279px; }
 
 .keyboardKey {
   float: left;
@@ -55,6 +53,8 @@ body {
   -webkit-border-radius: 6.3px;
   border-style: solid;
   border-width: 1pt; }
+  .keyboardKey#toggle_music {
+    width: 486px; }
   .keyboardKey .keyLetter {
     position: relative;
     padding: 5px;
