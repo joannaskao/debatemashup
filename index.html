@@ -6,6 +6,7 @@
 	<title>Debate mashup woo hoo!</title>
   <script src="buffer-loader.js"></script>
   <script src="jquery-1.8.2.min.js"></script>
+  <script src="spin.js"></script>
   <script src="interactions.js"></script>
   <script src="drumpad.js"></script>
 </head>
@@ -15,49 +16,56 @@
 <audio id="sound-s" src="samples/bingos_left_change.mp3"></audio>
 <!--  The backend should populate these with a bunch of samples... -->
 
-<h1>Debate mashup woo hoo!</h1>
-
-<div class="intro">
-  <p>This is a cool presidential debate mashup app thing.  Hit keys on
-  your keyboard to play sounds!</p>
-  <h3>Use asdf to play awesome sounds!!</h3>
-  <button id="toggle_music">Play Music!</button>
+<div id="topbar">
+	<div class="contentContainer">
+		<h1>Debate mashup woo hoo!</h1>
+	</div>
 </div>
 
-<div class="loadingscreen"></div>
+<div id="loadingscreen"></div>
 
-<div class="keyboardContainer">
+<div class="contentContainer" id="keyboardContainer">
 	<div class="keyboardRow" id="row1">
-		<div class="keyboardKey" id="keyQ"></div>
-		<div class="keyboardKey" id="keyW"></div>
-		<div class="keyboardKey" id="keyE"></div>
-		<div class="keyboardKey" id="keyR"></div>
-		<div class="keyboardKey" id="keyT"></div>
-		<div class="keyboardKey" id="keyY"></div>
-		<div class="keyboardKey" id="keyU"></div>
-		<div class="keyboardKey" id="keyI"></div>
-		<div class="keyboardKey" id="keyO"></div>
-		<div class="keyboardKey" id="keyP"></div>
+		<div class="keyboardKey" id="keyQ"><span class="keyLetter">Q</span>
+			<div class="keyLabel">binders full of women</div>
+		</div>
+		<div class="keyboardKey" id="keyW"><span class="keyLetter">W</span>
+			<div class="keyLabel">that's not true</div>
+		</div>
+		<div class="keyboardKey" id="keyE"><span class="keyLetter">E</span>
+			<div class="keyLabel">gangbangers</div>
+		</div>
+		<div class="keyboardKey" id="keyR"><span class="keyLetter">R</span></div>
+		<div class="keyboardKey" id="keyT"><span class="keyLetter">T</span></div>
+		<div class="keyboardKey" id="keyY"><span class="keyLetter">Y</span></div>
+		<div class="keyboardKey" id="keyU"><span class="keyLetter">U</span></div>
+		<div class="keyboardKey" id="keyI"><span class="keyLetter">I</span></div>
+		<div class="keyboardKey" id="keyO"><span class="keyLetter">O</span></div>
+		<div class="keyboardKey" id="keyP"><span class="keyLetter">P</span></div>
 	</div>
 	<div class="keyboardRow" id="row2">
-		<div class="keyboardKey" id="keyA"></div>
-		<div class="keyboardKey" id="keyS"></div>
-		<div class="keyboardKey" id="keyD"></div>
-		<div class="keyboardKey" id="keyF"></div>
-		<div class="keyboardKey" id="keyG"></div>
-		<div class="keyboardKey" id="keyH"></div>
-		<div class="keyboardKey" id="keyJ"></div>
-		<div class="keyboardKey" id="keyK"></div>
-		<div class="keyboardKey" id="keyL"></div>
+		<div class="keyboardKey" id="keyA"><span class="keyLetter">A</span></div>
+		<div class="keyboardKey" id="keyS"><span class="keyLetter">S</span></div>
+		<div class="keyboardKey" id="keyD"><span class="keyLetter">D</span></div>
+		<div class="keyboardKey" id="keyF"><span class="keyLetter">F</span></div>
+		<div class="keyboardKey" id="keyG"><span class="keyLetter">G</span></div>
+		<div class="keyboardKey" id="keyH"><span class="keyLetter">H</span></div>
+		<div class="keyboardKey" id="keyJ"><span class="keyLetter">J</span></div>
+		<div class="keyboardKey" id="keyK"><span class="keyLetter">K</span></div>
+		<div class="keyboardKey" id="keyL"><span class="keyLetter">L</span></div>
 	</div>
 	<div class="keyboardRow" id="row3">
-		<div class="keyboardKey" id="keyZ"></div>
-		<div class="keyboardKey" id="keyX"></div>
-		<div class="keyboardKey" id="keyC"></div>
-		<div class="keyboardKey" id="keyV"></div>
-		<div class="keyboardKey" id="keyB"></div>
-		<div class="keyboardKey" id="keyN"></div>
-		<div class="keyboardKey" id="keyM"></div>
+		<div class="keyboardKey" id="keyZ"><span class="keyLetter">Z</span></div>
+		<div class="keyboardKey" id="keyX"><span class="keyLetter">X</span></div>
+		<div class="keyboardKey" id="keyC"><span class="keyLetter">C</span></div>
+		<div class="keyboardKey" id="keyV"><span class="keyLetter">V</span></div>
+		<div class="keyboardKey" id="keyB"><span class="keyLetter">B</span></div>
+		<div class="keyboardKey" id="keyN"><span class="keyLetter">N</span></div>
+		<div class="keyboardKey" id="keyM"><span class="keyLetter">M</span></div>
+	</div>
+
+	<div class="keyboardRow" id="row4">
+		<div class="keyboardKey" id="toggle_music"></div>
 	</div>
 </div>
 

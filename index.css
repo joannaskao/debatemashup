@@ -1,13 +1,20 @@
-h1 {
-  font-size: 36pt;
-  color: red;
-  text-align: center; }
+body {
+  font-family: Helvetica, Arial;
+  margin: 0px;
+  padding: 0px; }
 
-.intro p {
-  font-size: 14pt;
-  text-align: center; }
+#topbar {
+  width: 100%;
+  background-color: #ccd1db;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 200px;
+  z-index: -1; }
 
-.loadingscreen{
+#loadingscreen{
     position:absolute;
     top:0;
     left:0;
@@ -17,38 +24,42 @@ h1 {
     z-index:10;
 }
 
-.keyboardContainer {
-  position: relative;
-  width: 1016.66667px;
-  /* height: 200px; */
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 100px; }
+#keyboardContainer {
+  position: absolute;
+  top: 209px; }
 
-.keyboardContainer .keyboardRow {
-    display: block;
-    clear: both;
-    position: relative; 
-}
+.contentContainer {
+  margin-left: 180px; }
 
-.keyboardContainer .keyboardRow#row2 {
-    left: 18px; 
-}
+.keyboardRow {
+  display: block;
+  clear: both;
+  position: relative; }
 
-.keyboardContainer .keyboardRow#row3 {
-    left: 72px; 
-}
+.keyboardRow#row2 {
+  left: 18px; }
 
-.keyboardContainer .keyboardKey {
-    float: left;
-    margin: 4.5px;
-    width: 90px;
-    height: 90px;
-    background-color: #ccd1db;
-    border-color: #60769c;
-    border-radius: 6.3px;
-    -moz-border-radius: 6.3px;
-    -webkit-border-radius: 6.3px;
-    border-style: solid;
-    border-width: 1pt; 
-}
+.keyboardRow#row3 {
+  left: 72px; }
+
+.keyboardKey {
+  float: left;
+  width: 90px;
+  height: 90px;
+  margin: 4.5px;
+  padding: 0px;
+  background-color: #ccd1db;
+  border-color: #60769c;
+  border-radius: 6.3px;
+  -moz-border-radius: 6.3px;
+  -webkit-border-radius: 6.3px;
+  border-style: solid;
+  border-width: 1pt; }
+  .keyboardKey .keyLetter {
+    position: relative;
+    padding: 5px;
+    font-weight: bold; }
+  .keyboardKey .keyLabel {
+    position: relative;
+    padding: 5px;
+    font-size: smaller; }
