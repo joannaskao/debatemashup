@@ -10,7 +10,19 @@ function init_interactions(){
 	$(document).keyup(function(e){
 		if (e.keyCode in keymapper){
 			console.log(keymapper[e.keyCode])
-			$("#key"+keymapper[e.keyCode].toUpperCase()).css({'background': 'blue'})
+			$("#key"+keymapper[e.keyCode].toUpperCase()).css({    
+				'float': 'left',
+			    'margin': '4.5px',
+			    'width': '90px',
+			    'height': '90px',
+			    'background-color': '#ccd1db',
+			    'border-color': '#60769c',
+			    'border-radius': '6.3px',
+			    '-moz-border-radius': '6.3px',
+			    '-webkit-border-radius': '6.3px',
+			    'border-style': 'solid',
+			    'border-width': '1pt',
+			 });
 		}
 	});
 
