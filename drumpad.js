@@ -175,6 +175,7 @@ function preloadData() {
       "samples/big bird.wav",
       "samples/not as big as yours.wav",
       "samples/push on this issue.wav",
+      "samples/gang bangers.wav",
       "samples/120bpm.mp3"
     ], 
     function(list) {
@@ -184,6 +185,7 @@ function preloadData() {
       mapBufferToList(list[3], 'f');
       mapBufferToList(list[4], 'j');
       mapBufferToList(list[5], 'k');
+      mapBufferToList(list[6], 'l');
       mapBufferToList(list[list.length-1], 'background');
       $('#loadingscreen').remove(); // removes the loading screen
   });
