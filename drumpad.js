@@ -170,8 +170,10 @@ function mapBufferToList(buffer, key) {
 }
 
 function isObamaKey(key) {
+  
+  var code = keymapper[key];
 
-  switch (key) {
+  switch (code) {
     case 'a':
     case 's':
     case 'd':
