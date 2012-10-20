@@ -2,6 +2,7 @@
 var audio_context = new webkitAudioContext();
 var webkit_sound_library = {};
 
+/*
 var channel_max = 20;
 var sound_library = {};
 var channels = [];
@@ -26,15 +27,8 @@ function playSound(soundId) {
     }
   }
 }
-
-function keyPressed(key) {
-
-  //playSound('a');//right now, just ignore the key, play our single audio file
-  
-  var buffer = webkit_sound_library['a'];
-  webkitPlaySound(buffer);
-
-}
+*/
+// ***** AudioContext Specific ********
 
 function webkitPlaySound(audio_buf) {
   var source = audio_context.createBufferSource();
@@ -56,6 +50,23 @@ function loadDataFromSource(key, url) {
   request.send();
 }
 
+// *********** Event Handling Code **********
+function playForKey(code) {
+  code = 'a'; //ignore the actual keystroke, just play the one we have for now
+  var buffer = webkit_sound_library['a'];
+  webkitPlaySound(buffer);
+}
+
+function handleKeyPress(e) {
+  switch(e.keyCode) {
+    case 65   : playForKey('a'); break;
+    case 83   : playForKey('s'); break;
+    case 68   : playForKey('d'); break;
+    case 70  : playForKey('f'); break;
+    break;
+  }
+}
+
 function preloadData() {
 
   var handle = document.getElementById("sound-a");
@@ -72,13 +83,7 @@ $(document).ready(function() {
   // Handler for .ready() called.;
   preloadData();
   $(document).keydown(function(e) {
-      switch(e.keyCode) {;
-      case 65   : keyPressed('a'); break;
-      case 83   : keyPressed('s'); break;
-      case 68   : keyPressed('d'); break;
-      case 70  : keyPressed('f'); break;
-      break;
-      }
-      });
+    handleKeyPress(e);
+  });
   
 });
