@@ -32,7 +32,7 @@ function init_interactions(){
         $('#facediv').css({background_color: '#00FFFF'});
         $('#facediv').html('<img src="images/romney.png" />');
       }
-
+;
       $('#facediv').css({opacity: '1.0'});
       $('#facediv').animate({opacity: '0.0'});
       

@@ -59,10 +59,13 @@ function toggleBackgroundAudio(button) {
   } else {
     background_source = audio_context.createBufferSource();
     background_source.buffer = buffer_list["background"].buffer;
-    background_source.connect(audio_context.destination);
     background_source.loop = true;
     button.innerHtml = "Stop";
     background_source.noteOn(0);
+    var gainNode = audio_context.createGainNode();
+    background_source.connect(gainNode);
+    gainNode.connect(audio_context.destination); 
+    gainNode.gain.value = 0.08;
   }
 }
 
@@ -179,7 +182,7 @@ function preloadData() {
       "samples/not as big as yours.wav",
       "samples/gang bangers.wav",
       "samples/i don\'t look at my pension.wav",
-      "samples/120bpm.mp3"
+      "samples/electro_hop.mp3"
     ], 
     function(list) {
       console.log("loaded");
@@ -243,7 +246,6 @@ $(document).ready(function() {
   spinner()
   setup();
   preloadData();
-
 
   document.getElementById("toggle_music").addEventListener(
     "click",
