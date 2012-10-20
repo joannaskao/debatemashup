@@ -54,13 +54,15 @@ function metronome() {
 
 function toggleBackgroundAudio(button) {
   if (background_source && background_source.playbackState == 2) {
-    button.innerHtml = "Play";
+    // button.innerHtml = "Play";
+    $("#toggle_music").html('<div class="spacelabel">Play</div>');
     background_source.noteOff(0);
   } else {
     background_source = audio_context.createBufferSource();
     background_source.buffer = buffer_list["background"].buffer;
     background_source.loop = true;
-    button.innerHtml = "Stop";
+    // button.innerHtml = "Stop";
+    $("#toggle_music").html('<div class="spacelabel">Stop</div>');
     background_source.noteOn(0);
     var gainNode = audio_context.createGainNode();
     background_source.connect(gainNode);
@@ -206,7 +208,7 @@ function preloadData() {
       "samples/electro_hop.mp3"
     ], 
     function(list) {
-      console.log("loaded");
+      // console.log("loaded");
       mapBufferToList(list[0], 'a');
       mapBufferToList(list[1], 's');
       mapBufferToList(list[2], 'd');

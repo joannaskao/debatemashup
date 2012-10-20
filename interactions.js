@@ -24,18 +24,18 @@ function init_interactions(){
 			    'border-width': '1pt',
 			 });
 
-      var isObama = true;
-      if (isObama) {
-        $('#facediv').css({background_color: '#00FF00'});
-       	$('#facediv').html('<img src="images/obama.png" />');
-      } else {
-        $('#facediv').css({background_color: '#00FFFF'});
-        $('#facediv').html('<img src="images/romney.png" />');
-      }
-;
-      $('#facediv').css({opacity: '1.0'});
-      $('#facediv').animate({opacity: '0.0'});
-      
+			if (e.keyCode != 32){
+		      if (isObamaKey(e.keyCode)) {
+		        $('#facediv').css({background_color: '#00FF00'});
+		       	$('#facediv').html('<img src="images/obama.png" />');
+		      } else {
+		        $('#facediv').css({background_color: '#00FFFF'});
+		        $('#facediv').html('<img src="images/romney.png" />');
+		      }
+
+		      $('#facediv').css({opacity: '1.0'});
+		      $('#facediv').animate({opacity: '0.0'});
+		      }
 
 		}
 	});
