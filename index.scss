@@ -1,5 +1,19 @@
 $keySize: 90px;
 $keyMargin: $keySize * 0.05;
+$faintColor: #CCD1DB;
+$borderColor: #3975F7;
+$borderWidth: 1pt;
+
+@mixin roundedCorners {
+  $radius: $keySize * 0.07;
+
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  
+  border-style: solid;
+  border-width: $borderWidth;
+}
 
 h1 {
 	font-size: 36pt;
@@ -14,7 +28,7 @@ h1 {
 
 .keyboardContainer {
     position: relative;
-    width: 10*$keySize + 20*$keyMargin;
+    width: 10*$keySize + 20*$keyMargin + 20*$borderWidth;
     /* height: 200px; */
     margin-left: auto;
     margin-right: auto;
@@ -37,7 +51,11 @@ h1 {
 		margin: $keyMargin;
 		width: $keySize;
 		height: $keySize;
-		background-color: blue;
+		background-color: $faintColor;
+		
+		border-color: $borderColor;
+		
+		@include roundedCorners;
 	}
 }
 
