@@ -137,6 +137,7 @@ keymapper = {
   88: 'x',
   89: 'y',
   90: 'z',
+  32: 'spacebar',
 }
 
 function handleKeyPress(e) {
@@ -147,8 +148,13 @@ function handleKeyPress(e) {
   }
 
   if (e.keyCode in keymapper){
-    playForKey(keymapper[e.keyCode]);
+    if (e.keyCode === 32){
+      toggleBackgroundAudio(document.getElementById("toggle_music"));
+    }else{
+      playForKey(keymapper[e.keyCode]);
+    }
   }
+
 }
 
 function mapBufferToList(buffer, key) {
