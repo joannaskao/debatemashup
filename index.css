@@ -1,7 +1,5 @@
-h1 {
-  font-size: 36pt;
-  color: red;
-  text-align: center; }
+body {
+  font-family: Helvetica, Arial; }
 
 .intro p {
   font-size: 14pt;
@@ -34,3 +32,8 @@ h1 {
     -webkit-border-radius: 6.3px;
     border-style: solid;
     border-width: 1pt; }
+    .keyboardContainer .keyboardKey .keyLetter {
+      position: relative;
+      font-weight: bold;
+      left: 3px;
+      top: 3px; }

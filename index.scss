@@ -15,10 +15,11 @@ $borderWidth: 1pt;
   border-width: $borderWidth;
 }
 
+body {
+	font-family: Helvetica, Arial;
+}
+
 h1 {
-	font-size: 36pt;
-	color: red;
-	text-align: center;
 }
 
 .intro p {
@@ -54,7 +55,13 @@ h1 {
 		background-color: $faintColor;
 		
 		border-color: $borderColor;
-		
 		@include roundedCorners;
+		
+		.keyLetter {
+			position: relative;
+			font-weight: bold;
+			left: 3px;
+			top: 3px;
+		}
 	}
 }
