@@ -1,4 +1,7 @@
 
+var audio_context = new webkitAudioContext();
+var webkit_sound_libary = {};
+
 var channel_max = 20;
 var sound_library = {};
 var channels = [];
@@ -26,9 +29,22 @@ function playSound(soundId) {
 
 function keyPressed(key) {
 
-  playSound('a');//right now, just ignore the key, play our single audio file
+  //playSound('a');//right now, just ignore the key, play our single audio file
+  
+  var buffer = webkit_sound_library[key];
+  webkitPlaySound(buffer);
 
 }
+
+
+function webkitPlaySound(audio_buf) {
+  var source = context.createBufferSource();
+  source.buffer = audio_buf;
+  source.connect(context.destination);
+  source.noteOn(0);
+}
+
+
 $(document).ready(function() {
     // Handler for .ready() called.;
 
@@ -37,6 +53,11 @@ $(document).ready(function() {
   //handle.play();
   sound_library['a'] = handle;
   sound_library['s'] = handle2;
+
+  $.get('samples/bingos_left_change.mp3', function(data) {
+      console.log('Load was performed.');
+      webkit_sound_library['a'] = data;
+  });
 
   $(document).keydown(function(e) {
 
