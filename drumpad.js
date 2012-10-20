@@ -1,4 +1,7 @@
 
+var audio_context = new webkitAudioContext();
+var webkit_sound_library = {};
+
 var channel_max = 20;
 var sound_library = {};
 var channels = [];
@@ -26,11 +29,36 @@ function playSound(soundId) {
 
 function keyPressed(key) {
 
-  playSound('a');//right now, just ignore the key, play our single audio file
+  //playSound('a');//right now, just ignore the key, play our single audio file
+  
+  var buffer = webkit_sound_library[key];
+  webkitPlaySound(buffer);
 
 }
-$(document).ready(function() {
-    // Handler for .ready() called.;
+
+
+function webkitPlaySound(audio_buf) {
+  var source = audio_context.createBufferSource();
+  source.buffer = audio_buf;
+  source.connect(audio_context.destination);
+  source.noteOn(0);
+}
+
+function loadDataFromSource(key, url) {
+  var request = new XMLHttpRequest();
+  request.open('get', url, true);
+  request.responseType = 'arraybuffer';
+  // decode asynchronously
+  request.onload = function() {
+  audio_context.decodeAudioData(request.response, function(buffer) {
+    console.log('audio decode');
+    webkit_sound_library[key] = buffer;
+    }, null);
+  }
+  request.send();
+}
+
+function preloadData() {
 
   var handle = document.getElementById("sound-a");
   var handle2 = document.getElementById("sound-b");;
@@ -38,16 +66,24 @@ $(document).ready(function() {
   sound_library['a'] = handle;
   sound_library['s'] = handle2;
 
-  $(document).keydown(function(e) {
+  loadDataFromSource("a", "samples/bingos_left_change.mp3");
+}
 
-    console.log(e.keyCode);
-    switch(e.keyCode) {
+
+$(document).ready(function() {
+  // Handler for .ready() called.;
+
+  preloadData();
+
+  $(document).keydown(function(e) {
+      console.log(e.keyCode);
+      switch(e.keyCode) {
       case 65   : keyPressed('a'); break;
       case 83   : keyPressed('s'); break;
       case 68   : keyPressed('d'); break;
       case 70  : keyPressed('f'); break;
       break;
-    }
-  });
-    
+      }
+      });
+  
 });
