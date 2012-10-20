@@ -14,6 +14,15 @@ body {
   height: 200px;
   z-index: -1; }
 
+#loadingscreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10; }
+
 #keyboardContainer {
   width: 100%;
   margin: 0px;
@@ -31,17 +40,18 @@ body {
   clear: both;
   position: relative; }
 
-.keyboardRow#row2 {
+.keyboardRow#row2 .keyboardKey {
   left: 18px; }
 
-.keyboardRow#row3 {
+.keyboardRow#row3 .keyboardKey {
   left: 72px; }
 
-.keyboardRow#row4 {
+.keyboardRow#row4 .keyboardKey {
   left: 279px; }
 
 .keyboardKey {
   float: left;
+  position: relative;
   width: 90px;
   height: 90px;
   margin: 4.5px;
