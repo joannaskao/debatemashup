@@ -128,6 +128,7 @@ function preloadData() {
     function(list) {
       mapBufferToList(list[0], 'a');
       mapBufferToList(list[1], 's');
+      $('.loadingscreen').remove(); // removes the loading screen
   });
   bufferLoader.load();
 
