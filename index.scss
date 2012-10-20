@@ -1,8 +1,10 @@
 $keySize: 90px;
 $keyMargin: $keySize * 0.05;
+$leftMargin: 2*$keySize;
 $faintColor: #CCD1DB;
 $borderColor: #60769C;
 $borderWidth: 1pt;
+$topbarHeight: 200px;
 
 @mixin roundedCorners {
   $radius: $keySize * 0.07;
@@ -17,51 +19,57 @@ $borderWidth: 1pt;
 
 body {
 	font-family: Helvetica, Arial;
+	margin: 0px;
+	padding: 0px;
 }
 
-h1 {
+#topbar {
+	width: 100%;
+	background-color: $faintColor;
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: $topbarHeight;
+	z-index: -1;
 }
 
-.intro p {
-	font-size: 14pt;
-	text-align: center;
+#keyboardContainer {
+	position: absolute;
+	top: $topbarHeight + 2*$keyMargin;
 }
 
-.keyboardContainer {
-    position: relative;
-    width: 10*$keySize + 20*$keyMargin + 20*$borderWidth;
-    /* height: 200px; */
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 100px;
+.contentContainer {
+	margin-left: $leftMargin;
+}
 		
-	.keyboardRow {
-		display: block;
-		clear: both;
+.keyboardRow {
+	display: block;
+	clear: both;
+	position: relative;
+}
+.keyboardRow#row2 {
+	left: 18px;
+}
+.keyboardRow#row3 {
+	left: $keySize * 0.8;
+}
+
+.keyboardKey {
+	float: left;
+	margin: $keyMargin;
+	width: $keySize;
+	height: $keySize;
+	background-color: $faintColor;
+	
+	border-color: $borderColor;
+	@include roundedCorners;
+	
+	.keyLetter {
 		position: relative;
-	}
-	.keyboardRow#row2 {
-		left: 18px;
-	}
-	.keyboardRow#row3 {
-		left: $keySize * 0.8;
-	}
-
-	.keyboardKey {
-		float: left;
-		margin: $keyMargin;
-		width: $keySize;
-		height: $keySize;
-		background-color: $faintColor;
-		
-		border-color: $borderColor;
-		@include roundedCorners;
-		
-		.keyLetter {
-			position: relative;
-			font-weight: bold;
-			left: 3px;
-			top: 3px;
-		}
+		font-weight: bold;
+		left: 3px;
+		top: 3px;
 	}
 }
