@@ -50,6 +50,21 @@ function metronome() {
   }
 }
 
+function toggleBackgroundAudio() {
+  if (background_source == null) {
+    background_source = audio_context.createBufferSource();
+    background_source.buffer = buffer_list["background"];
+    background_source.connect(audio_context.destination);
+    background_source.loop = true;
+  }
+  if (background_source.playbackState == 2) {
+    background_source.noteOff(0);
+  } else {
+    background_source.noteOn(0);
+  }
+
+}
+
 // ***** AudioContext Specific ********
 
 function webkitPlaySound(audio_buf, delay ) {
@@ -158,35 +173,15 @@ function preloadData() {
     [
       "samples/what it takes.wav",
       "samples/binders full of women.wav",
-      "samples/bingos_left_change.mp3",
-      "samples/bingos_left_change.mp3"
+      "samples/120bpm.mp3"
     ], 
     function(list) {
       mapBufferToList(list[0], 'a');
       mapBufferToList(list[1], 's');
+      mapBufferToList(list[list.length-1], 'background');
       $('.loadingscreen').remove(); // removes the loading screen
   });
   bufferLoader.load();
-
-  var request = new XMLHttpRequest();
-  request.open('get', "samples/120bpm.mp3", true);
-  request.responseType = 'arraybuffer';
-  // decode asynchronously
-  request.onload = function() {
-    audio_context.decodeAudioData(
-      request.response,
-      function(buffer) {
-        buffer_list["120bpm"] = buffer;
-        console.log("loaded metronome");
-      },
-      function(error) {
-        console.error('decodeAudioData error', error);
-      }
-        );
-    
-  };
-  request.send();
-  
   
 }
 
