@@ -50,6 +50,21 @@ function metronome() {
   }
 }
 
+function toggleBackgroundAudio() {
+  if (background_source == null) {
+    background_source = audio_context.createBufferSource();
+    background_source.buffer = buffer_list["background"];
+    background_source.connect(audio_context.destination);
+    background_source.loop = true;
+  }
+  if (background_source.playbackState == 2) {
+    background_source.noteOff(0);
+  } else {
+    background_source.noteOn(0);
+  }
+
+}
+
 // ***** AudioContext Specific ********
 
 function webkitPlaySound(audio_buf, delay ) {
@@ -58,6 +73,7 @@ function webkitPlaySound(audio_buf, delay ) {
   source.buffer = audio_buf;
   source.connect(audio_context.destination);
   source.noteOn(delay);
+  return source;
 }
 function loadDataFromSource(key, url, callback) {
   var request = new XMLHttpRequest();
@@ -73,9 +89,17 @@ function loadDataFromSource(key, url, callback) {
 function playForKey(code) {
   var buffer = buffer_list[code];
 
+  if(audio_context.currentTime < buffer.finishTime && buffer.currentSource != null) {
+    buffer.currentSource.noteOff(0);
+    buffer.finishTime = -1;
+  }
+  
+
   if(audio_context.currentTime  > buffer.finishTime) {
     var nextTimeStamp = timeToNextInterval();
-    webkitPlaySound(buffer.buffer, 0);
+    var source = webkitPlaySound(buffer.buffer, 0);
+    buffer.currentSource = source;
+    buffer.finishTime = audio_context.currentTime + buffer.buffer.duration;
     //buffer.finishTime = nextTimeStamp + tempo_sec;
     //console.log("register sound", nextTimeStamp);
     //buffer.finishTime = new Date().getTime() + buffer.buffer.duration*1000;
@@ -131,6 +155,7 @@ function mapBufferToList(buffer, key) {
   buffer_list[key] = {};
   buffer_list[key].buffer = buffer;
   buffer_list[key].finishTime = -1;
+  buffer_list[key].currentSource = null;
 }
 
 function preloadData() {
@@ -148,35 +173,15 @@ function preloadData() {
     [
       "samples/what it takes.wav",
       "samples/binders full of women.wav",
-      "samples/bingos_left_change.mp3",
-      "samples/bingos_left_change.mp3"
+      "samples/120bpm.mp3"
     ], 
     function(list) {
       mapBufferToList(list[0], 'a');
       mapBufferToList(list[1], 's');
+      mapBufferToList(list[list.length-1], 'background');
       $('.loadingscreen').remove(); // removes the loading screen
   });
   bufferLoader.load();
-
-  var request = new XMLHttpRequest();
-  request.open('get', "samples/120bpm.mp3", true);
-  request.responseType = 'arraybuffer';
-  // decode asynchronously
-  request.onload = function() {
-    audio_context.decodeAudioData(
-      request.response,
-      function(buffer) {
-        buffer_list["120bpm"] = buffer;
-        console.log("loaded metronome");
-      },
-      function(error) {
-        console.error('decodeAudioData error', error);
-      }
-        );
-    
-  };
-  request.send();
-  
   
 }
 
