@@ -141,6 +141,7 @@ keymapper = {
   32: 'spacebar',
 }
 
+
 function handleKeyPress(e) {
 
   if (typeof clock_start === 'undefined') {
@@ -179,6 +180,15 @@ function preloadData() {
       mapBufferToList(list[0], 'a');
       mapBufferToList(list[1], 's');
       mapBufferToList(list[list.length-1], 'background');
+      document.addEventListener(
+      "keydown",
+      function(e) {
+        if (new Date().getTime() - last_keypress_time > 100) {
+          last_keypress_time = new Date().getTime();
+          handleKeyPress(e);
+        }
+      },
+      false);
       $('#loadingscreen').remove(); // removes the loading screen
   });
   bufferLoader.load();
@@ -222,15 +232,6 @@ $(document).ready(function() {
   setup();
   preloadData();
 
-  document.addEventListener(
-    "keydown",
-    function(e) {
-      if (new Date().getTime() - last_keypress_time > 50) {
-        last_keypress_time = new Date().getTime();
-        handleKeyPress(e);
-      }
-    },
-    false);
 
   document.getElementById("toggle_music").addEventListener(
     "click",
