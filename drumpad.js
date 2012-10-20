@@ -1,4 +1,4 @@
-var tempo_sec = 1; //once every second
+var tempo_sec = 0.5; //once every second
 var clock_start;
 var audio_context;
 var buffer_list = {};
@@ -23,7 +23,7 @@ function playSound(soundId) {
       channel.finished = now.getTime() + handle.duration*1000;
       channel.audio.src = handle.src;
       channel.audio.load();
-      channel.audio.play();
+
       break;
     }
   }
@@ -35,47 +35,48 @@ function playSound(soundId) {
 function timeToNextInterval() {
   var delta = audio_context.currentTime - clock_start;
   var time_to_interval = delta % tempo_sec;
-  console.log("time to interval"+ time_to_interval + "delta" + delta);
+  console.log("time to interval"+ time_to_interval);
   return (audio_context.currentTime + time_to_interval);
+}
+
+function metronome() {
+  var source = audio_context.createBufferSource();
+  source.buffer = buffer_list["120bpm"];
+  source.connect(audio_context.destination);
+  source.loop = true;
+  source.noteOn(0);
+  console.log("metronome");
 }
 
 // ***** AudioContext Specific ********
 
 function webkitPlaySound(audio_buf, delay ) {
   delay = typeof delay !== 'undefined' ? delay : 0;
-     
   var source = audio_context.createBufferSource();
   source.buffer = audio_buf;
   source.connect(audio_context.destination);
   source.noteOn(delay);
 }
-function loadDataFromSource(key, url) {
+function loadDataFromSource(key, url, callback) {
   var request = new XMLHttpRequest();
   request.open('get', url, true);
   request.responseType = 'arraybuffer';
   // decode asynchronously
-  request.onload = function() {
-  audio_context.decodeAudioData(request.response, function(buffer) {
-    buffer_list[key] = {};
-    buffer_list[key].buffer = buffer;
-    buffer_list[key].finishTime = -1;
-    }, null);
-  }
+  request.onload = callback;
   request.send();
+  return request;
 }
 
 // *********** Event Handling Code **********
 function playForKey(code) {
-  code = 'a'; //ignore the actual keystroke, just play the one we have for now
-  var buffer = buffer_list['a'];
+  var buffer = buffer_list[code];
 
-  //figure out if its actually playing
+
   if(audio_context.currentTime  > buffer.finishTime) {
     var nextTimeStamp = timeToNextInterval();
-    webkitPlaySound(buffer.buffer, nextTimeStamp);
-    buffer.finishTime = nextTimeStamp + tempo_sec/2;
-    console.log("register sound", nextTimeStamp);
-
+    webkitPlaySound(buffer.buffer, 0);
+    //buffer.finishTime = nextTimeStamp + tempo_sec;
+    //console.log("register sound", nextTimeStamp);
     //buffer.finishTime = new Date().getTime() + buffer.buffer.duration*1000;
   } else {
     console.log("already playing");
@@ -84,7 +85,12 @@ function playForKey(code) {
 }
 
 function handleKeyPress(e) {
-  clock_start = typeof clock_start !== 'undefined' ? clock_start : audio_context.currentTime;
+
+  if (typeof clock_start === 'undefined') {
+    clock_start = audio_context.currentTime;
+    metronome();
+  }
+
   switch(e.keyCode) {
     case 65   : playForKey('a'); break;
     case 83   : playForKey('s'); break;
@@ -92,6 +98,12 @@ function handleKeyPress(e) {
     case 70  : playForKey('f'); break;
     break;
   }
+}
+
+function mapBufferToList(buffer, key) {
+  buffer_list[key] = {};
+  buffer_list[key].buffer = buffer;
+  buffer_list[key].finishTime = -1;
 }
 
 function preloadData() {
@@ -107,24 +119,42 @@ function preloadData() {
   var bufferLoader = new BufferLoader(
     audio_context,
     [
-      "samples/bingos_left_change.mp3",
-      "samples/bingos_left_change.mp3",
+      "samples/what it takes.wav",
+      "samples/binders full of women.wav",
       "samples/bingos_left_change.mp3",
       "samples/bingos_left_change.mp3"
     ], 
     function(list) {
-      var key = 'a';
-      buffer_list[key] = {};
-      buffer_list[key].buffer = list[0];
-      buffer_list[key].finishTime = -1;
+      mapBufferToList(list[0], 'a');
+      mapBufferToList(list[1], 's');
   });
   bufferLoader.load();
+
+  var request = new XMLHttpRequest();
+  request.open('get', "samples/120bpm.mp3", true);
+  request.responseType = 'arraybuffer';
+  // decode asynchronously
+  request.onload = function() {
+    audio_context.decodeAudioData(
+      request.response,
+      function(buffer) {
+        buffer_list["120bpm"] = buffer;
+        console.log("loaded metronome");
+      },
+      function(error) {
+        console.error('decodeAudioData error', error);
+      }
+        );
+    
+  };
+  request.send();
+  
   
 }
 
 function setup() {
   try {
-    audio_context = new webkitAudioContext();;
+    audio_context = new webkitAudioContext();
   }
   catch(e) {
     alert('Web Audio API is not supported in this browser');
