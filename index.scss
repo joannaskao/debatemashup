@@ -58,18 +58,25 @@ body {
 
 .keyboardKey {
 	float: left;
-	margin: $keyMargin;
 	width: $keySize;
 	height: $keySize;
-	background-color: $faintColor;
+	margin: $keyMargin;
+	padding: 0px;
 	
+	background-color: $faintColor;
 	border-color: $borderColor;
 	@include roundedCorners;
 	
 	.keyLetter {
 		position: relative;
+		padding: 5px;
 		font-weight: bold;
-		left: 3px;
-		top: 3px;
+	}
+	
+	.keyLabel {
+		position: relative;
+		padding: 5px;
+		
+		font-size: smaller;
 	}
 }

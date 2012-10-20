@@ -34,9 +34,10 @@ body {
 
 .keyboardKey {
   float: left;
-  margin: 4.5px;
   width: 90px;
   height: 90px;
+  margin: 4.5px;
+  padding: 0px;
   background-color: #ccd1db;
   border-color: #60769c;
   border-radius: 6.3px;
@@ -46,6 +47,9 @@ body {
   border-width: 1pt; }
   .keyboardKey .keyLetter {
     position: relative;
-    font-weight: bold;
-    left: 3px;
-    top: 3px; }
+    padding: 5px;
+    font-weight: bold; }
+  .keyboardKey .keyLabel {
+    position: relative;
+    padding: 5px;
+    font-size: smaller; }
