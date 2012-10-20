@@ -67,7 +67,7 @@ function toggleBackgroundAudio(button) {
     var gainNode = audio_context.createGainNode();
     background_source.connect(gainNode);
     gainNode.connect(audio_context.destination); 
-    gainNode.gain.value = 0.08;
+    gainNode.gain.value = 0.5;
   }
 }
 
