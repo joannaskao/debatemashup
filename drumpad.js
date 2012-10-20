@@ -3,6 +3,7 @@ var tempo_sec = 0.5; //once every second
 var clock_start;
 var audio_context;
 var buffer_list = {};
+var last_keypress_time = new Date().getTime();;
 
 /*
 var channel_max = 20;
@@ -194,7 +195,10 @@ $(document).ready(function() {
   document.addEventListener(
     "keydown",
     function(e) {
-      handleKeyPress(e);
+      if (new Date().getTime() - last_keypress_time > 50) {
+        last_keypress_time = new Date().getTime();
+        handleKeyPress(e);
+      }
     },
     false);
 
