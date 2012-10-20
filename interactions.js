@@ -30,7 +30,7 @@ function init_interactions(){
 		       	$('#facediv').html('<img src="images/obama.png" />');
 		      } else {
 		        $('#facediv').css({background_color: '#00FFFF'});
-		        $('#facediv').html('<img src="images/romney.png" />');
+		        $('#facediv').html('<img src="images/romney.png" style="width:200px" />');
 		      }
 
 		      $('#facediv').css({opacity: '1.0'});
