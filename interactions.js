@@ -23,6 +23,18 @@ function init_interactions(){
 			    'border-style': 'solid',
 			    'border-width': '1pt',
 			 });
+
+      var isObama = true;
+      if (isObama) {
+        $('#facediv').css({background_color: '#00FF00'});
+      } else {
+        $('#facediv').css({background_color: '#00FFFF'});
+      }
+
+      $('#facediv').css({opacity: '1.0'});
+      $('#facediv').animate({opacity: '0.0'});
+      
+
 		}
 	});
 
