@@ -1,3 +1,4 @@
+var background_source;
 var tempo_sec = 0.5; //once every second
 var clock_start;
 var audio_context;
@@ -50,19 +51,18 @@ function metronome() {
   }
 }
 
-function toggleBackgroundAudio() {
-  if (background_source == null) {
-    background_source = audio_context.createBufferSource();
-    background_source.buffer = buffer_list["background"];
-    background_source.connect(audio_context.destination);
-    background_source.loop = true;
-  }
-  if (background_source.playbackState == 2) {
+function toggleBackgroundAudio(button) {
+  if (background_source && background_source.playbackState == 2) {
+    button.innerHtml = "Play";
     background_source.noteOff(0);
   } else {
+    background_source = audio_context.createBufferSource();
+    background_source.buffer = buffer_list["background"].buffer;
+    background_source.connect(audio_context.destination);
+    background_source.loop = true;
+    button.innerHtml = "Stop";
     background_source.noteOn(0);
   }
-
 }
 
 // ***** AudioContext Specific ********
@@ -159,15 +159,7 @@ function mapBufferToList(buffer, key) {
 }
 
 function preloadData() {
-/*
-  var handle = document.getElementById("sound-a");
-  var handle2 = document.getElementById("sound-b");;
-  //handle.play();
-  sound_library['a'] = handle;
-  sound_library['s'] = handle2;
-*/
-  //loadDataFromSource("a", "samples/bingos_left_change.mp3");;
-
+;
   var bufferLoader = new BufferLoader(
     audio_context,
     [
@@ -179,7 +171,7 @@ function preloadData() {
       mapBufferToList(list[0], 'a');
       mapBufferToList(list[1], 's');
       mapBufferToList(list[list.length-1], 'background');
-      $('.loadingscreen').remove(); // removes the loading screen
+      $('#loadingscreen').remove(); // removes the loading screen
   });
   bufferLoader.load();
   
@@ -194,8 +186,31 @@ function setup() {
   }
 }
 
+function spinner(){
+    var opts = {
+    lines: 13, // The number of lines to draw
+    length: 7, // The length of each line
+    width: 4, // The line thickness
+    radius: 10, // The radius of the inner circle
+    corners: 1, // Corner roundness (0..1)
+    rotate: 0, // The rotation offset
+    color: '#EEE', // #rgb or #rrggbb
+    speed: 1, // Rounds per second
+    trail: 60, // Afterglow percentage
+    shadow: false, // Whether to render a shadow
+    hwaccel: false, // Whether to use hardware acceleration
+    className: 'spinner', // The CSS class to assign to the spinner
+    zIndex: 2e9, // The z-index (defaults to 2000000000)
+    top: 'auto', // Top position relative to parent in px
+    left: 'auto' // Left position relative to parent in px
+  };
+  var target = document.getElementById('loadingscreen');
+  var spinner = new Spinner(opts).spin(target);
+}
+
 $(document).ready(function() {
   // Handler for .ready() called.;
+  spinner()
   setup();
   preloadData();
 
@@ -203,6 +218,13 @@ $(document).ready(function() {
     "keydown",
     function(e) {
       handleKeyPress(e);
+    },
+    false);
+
+  document.getElementById("toggle_music").addEventListener(
+    "click",
+    function(e) {
+      toggleBackgroundAudio(this);
     },
     false);
 
