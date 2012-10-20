@@ -65,7 +65,7 @@ function toggleBackgroundAudio(button) {
     var gainNode = audio_context.createGainNode();
     background_source.connect(gainNode);
     gainNode.connect(audio_context.destination); 
-    gainNode.gain.value = 0.1;
+    gainNode.gain.value = 0.08;
   }
 }
 
@@ -181,7 +181,7 @@ function preloadData() {
       "samples/not as big as yours.wav",
       "samples/push on this issue.wav",
       "samples/gang bangers.wav",
-      "samples/120bpm.mp3"
+      "samples/electro_hop.mp3"
     ], 
     function(list) {
       console.log("loaded");
