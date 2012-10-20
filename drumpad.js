@@ -172,9 +172,10 @@ function preloadData() {
     [
       "samples/what it takes.wav",
       "samples/binders full of women.wav",
-      "samples/background1.mp3"
+      "samples/120bpm.mp3"
     ], 
     function(list) {
+      console.log("loaded");
       mapBufferToList(list[0], 'a');
       mapBufferToList(list[1], 's');
       mapBufferToList(list[list.length-1], 'background');
