@@ -179,14 +179,9 @@ function isObamaKey(key) {
     case 'a':
     case 's':
     case 'd':
-      return false;
-    break;
     case 'f':
     case 'g':
-    case 'j':
-    case 'k':
-    case 'l':
-      return true;
+      return false;
     break;
   }
   return true;
@@ -200,6 +195,8 @@ function preloadData() {
       "samples/what it takes.wav",
       "samples/binders full of women.wav",
       "samples/but gosh.wav",
+      "samples/romney jobs1.wav",
+      "samples/you\'ll get your chance.wav",
       "samples/big bird.wav",
       "samples/push on this issue.wav",
       "samples/not as big as yours.wav",
@@ -214,9 +211,11 @@ function preloadData() {
       mapBufferToList(list[2], 'd');
       mapBufferToList(list[3], 'f');
       mapBufferToList(list[4], 'g');
-      mapBufferToList(list[5], 'j');
-      mapBufferToList(list[6], 'k');
-      mapBufferToList(list[7], 'l');
+      mapBufferToList(list[5], 'h');
+      mapBufferToList(list[6], 'j');
+      mapBufferToList(list[7], 'k');
+      mapBufferToList(list[8], 'l');
+      mapBufferToList(list[9], 'p');
       mapBufferToList(list[list.length-1], 'background');
       document.addEventListener(
       "keydown",
