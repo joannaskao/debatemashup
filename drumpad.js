@@ -166,7 +166,7 @@ function preloadData() {
     [
       "samples/what it takes.wav",
       "samples/binders full of women.wav",
-      "samples/120bpm.mp3"
+      "samples/background1.mp3"
     ], 
     function(list) {
       mapBufferToList(list[0], 'a');
