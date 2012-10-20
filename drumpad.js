@@ -242,7 +242,6 @@ $(document).ready(function() {
   setup();
   preloadData();
 
-
   document.getElementById("toggle_music").addEventListener(
     "click",
     function(e) {
