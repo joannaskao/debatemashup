@@ -173,12 +173,22 @@ function preloadData() {
     [
       "samples/what it takes.wav",
       "samples/binders full of women.wav",
+      "samples/but gosh.wav",
+      "samples/big bird.wav",
+      "samples/not as big as yours.wav",
+      "samples/push on this issue.wav",
+      "samples/gang bangers.wav",
       "samples/120bpm.mp3"
     ], 
     function(list) {
       console.log("loaded");
       mapBufferToList(list[0], 'a');
       mapBufferToList(list[1], 's');
+      mapBufferToList(list[2], 'd');
+      mapBufferToList(list[3], 'f');
+      mapBufferToList(list[4], 'j');
+      mapBufferToList(list[5], 'k');
+      mapBufferToList(list[6], 'l');
       mapBufferToList(list[list.length-1], 'background');
       document.addEventListener(
       "keydown",
