@@ -59,10 +59,13 @@ function toggleBackgroundAudio(button) {
   } else {
     background_source = audio_context.createBufferSource();
     background_source.buffer = buffer_list["background"].buffer;
-    background_source.connect(audio_context.destination);
     background_source.loop = true;
     button.innerHtml = "Stop";
     background_source.noteOn(0);
+    var gainNode = audio_context.createGainNode();
+    background_source.connect(gainNode);
+    gainNode.connect(audio_context.destination); 
+    gainNode.gain.value = 0.08;
   }
 }
 
@@ -166,8 +169,29 @@ function mapBufferToList(buffer, key) {
   buffer_list[key].currentSource = null;
 }
 
+function isObamaKey(key) {
+  
+  var code = keymapper[key];
+
+  switch (code) {
+    case 'a':
+    case 's':
+    case 'd':
+      return false;
+    break;
+    case 'f':
+    case 'g':
+    case 'j':
+    case 'k':
+    case 'l':
+      return true;
+    break;
+  }
+  return true;
+}
+
 function preloadData() {
-;
+
   var bufferLoader = new BufferLoader(
     audio_context,
     [
@@ -175,10 +199,11 @@ function preloadData() {
       "samples/binders full of women.wav",
       "samples/but gosh.wav",
       "samples/big bird.wav",
-      "samples/not as big as yours.wav",
       "samples/push on this issue.wav",
+      "samples/not as big as yours.wav",
       "samples/gang bangers.wav",
-      "samples/120bpm.mp3"
+      "samples/i don\'t look at my pension.wav",
+      "samples/electro_hop.mp3"
     ], 
     function(list) {
       console.log("loaded");
@@ -186,9 +211,10 @@ function preloadData() {
       mapBufferToList(list[1], 's');
       mapBufferToList(list[2], 'd');
       mapBufferToList(list[3], 'f');
-      mapBufferToList(list[4], 'j');
-      mapBufferToList(list[5], 'k');
-      mapBufferToList(list[6], 'l');
+      mapBufferToList(list[4], 'g');
+      mapBufferToList(list[5], 'j');
+      mapBufferToList(list[6], 'k');
+      mapBufferToList(list[7], 'l');
       mapBufferToList(list[list.length-1], 'background');
       document.addEventListener(
       "keydown",
@@ -241,7 +267,6 @@ $(document).ready(function() {
   spinner()
   setup();
   preloadData();
-
 
   document.getElementById("toggle_music").addEventListener(
     "click",
