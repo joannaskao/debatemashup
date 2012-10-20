@@ -1,4 +1,5 @@
-
+var tempo_sec = 1; //once every second
+var clock_start;
 var audio_context;
 var buffer_list = {};
 
@@ -28,13 +29,25 @@ function playSound(soundId) {
   }
 }
 */
+
+// ***** Helper Audio Code  ********
+
+function timeToNextInterval() {
+  var delta = audio_context.currentTime - clock_start;
+  var time_to_interval = delta % tempo_sec;
+  console.log("time to interval"+ time_to_interval + "delta" + delta);
+  return (audio_context.currentTime + time_to_interval);
+}
+
 // ***** AudioContext Specific ********
 
-function webkitPlaySound(audio_buf) {
+function webkitPlaySound(audio_buf, delay ) {
+  delay = typeof delay !== 'undefined' ? delay : 0;
+     
   var source = audio_context.createBufferSource();
   source.buffer = audio_buf;
   source.connect(audio_context.destination);
-  source.noteOn(0);
+  source.noteOn(delay);
 }
 function loadDataFromSource(key, url) {
   var request = new XMLHttpRequest();
@@ -43,8 +56,9 @@ function loadDataFromSource(key, url) {
   // decode asynchronously
   request.onload = function() {
   audio_context.decodeAudioData(request.response, function(buffer) {
-    console.log('audio decode');
-    buffer_list[key] = buffer;
+    buffer_list[key] = {};
+    buffer_list[key].buffer = buffer;
+    buffer_list[key].finishTime = -1;
     }, null);
   }
   request.send();
@@ -54,10 +68,23 @@ function loadDataFromSource(key, url) {
 function playForKey(code) {
   code = 'a'; //ignore the actual keystroke, just play the one we have for now
   var buffer = buffer_list['a'];
-  webkitPlaySound(buffer);
+
+  //figure out if its actually playing
+  if(audio_context.currentTime  > buffer.finishTime) {
+    var nextTimeStamp = timeToNextInterval();
+    webkitPlaySound(buffer.buffer, nextTimeStamp);
+    buffer.finishTime = nextTimeStamp + tempo_sec/2;
+    console.log("register sound", nextTimeStamp);
+
+    //buffer.finishTime = new Date().getTime() + buffer.buffer.duration*1000;
+  } else {
+    console.log("already playing");
+  }
+
 }
 
 function handleKeyPress(e) {
+  clock_start = typeof clock_start !== 'undefined' ? clock_start : audio_context.currentTime;
   switch(e.keyCode) {
     case 65   : playForKey('a'); break;
     case 83   : playForKey('s'); break;
@@ -86,8 +113,10 @@ function preloadData() {
       "samples/bingos_left_change.mp3"
     ], 
     function(list) {
-      alert("hello here");;
-      buffer_list['a'] = list[0];
+      var key = 'a';
+      buffer_list[key] = {};
+      buffer_list[key].buffer = list[0];
+      buffer_list[key].finishTime = -1;
   });
   bufferLoader.load();
   
@@ -100,15 +129,18 @@ function setup() {
   catch(e) {
     alert('Web Audio API is not supported in this browser');
   }
-
 }
 
 $(document).ready(function() {
   // Handler for .ready() called.;
   setup();
   preloadData();
-  $(document).keydown(function(e) {
-    handleKeyPress(e);
-  });
+
+  document.addEventListener(
+    "keydown",
+    function(e) {
+      handleKeyPress(e);
+    },
+    false);
   
 });
