@@ -58,6 +58,7 @@ function webkitPlaySound(audio_buf, delay ) {
   source.buffer = audio_buf;
   source.connect(audio_context.destination);
   source.noteOn(delay);
+  return source;
 }
 function loadDataFromSource(key, url, callback) {
   var request = new XMLHttpRequest();
@@ -73,9 +74,17 @@ function loadDataFromSource(key, url, callback) {
 function playForKey(code) {
   var buffer = buffer_list[code];
 
+  if(audio_context.currentTime < buffer.finishTime && buffer.currentSource != null) {
+    buffer.currentSource.noteOff(0);
+    buffer.finishTime = -1;
+  }
+  
+
   if(audio_context.currentTime  > buffer.finishTime) {
     var nextTimeStamp = timeToNextInterval();
-    webkitPlaySound(buffer.buffer, 0);
+    var source = webkitPlaySound(buffer.buffer, 0);
+    buffer.currentSource = source;
+    buffer.finishTime = audio_context.currentTime + buffer.buffer.duration;
     //buffer.finishTime = nextTimeStamp + tempo_sec;
     //console.log("register sound", nextTimeStamp);
     //buffer.finishTime = new Date().getTime() + buffer.buffer.duration*1000;
@@ -105,6 +114,7 @@ function mapBufferToList(buffer, key) {
   buffer_list[key] = {};
   buffer_list[key].buffer = buffer;
   buffer_list[key].finishTime = -1;
+  buffer_list[key].currentSource = null;
 }
 
 function preloadData() {
