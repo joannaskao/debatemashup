@@ -1,35 +1,30 @@
 h1 {
-	font-size: 36pt;
-	color: red;
-	text-align: center;
-}
+  font-size: 36pt;
+  color: red;
+  text-align: center; }
 
 .intro p {
-	font-size: 14pt;
-	text-align: center;
-}
+  font-size: 14pt;
+  text-align: center; }
 
 .keyboardContainer {
-    position: relative;
-    width: 1000px;
-    height: 200px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 100px;
-}
-.keyboardContainer .keyboardRow {
-	display: block;
-	clear: both;
-}
-
-.keyboardRow#row1 {
-	
-}
-
-.keyboardContainer .keyboardRow .keyboardKey {
-	float: left;
-	margin: 5pt;
-	width: 60pt;
-	height: 60pt;
-	background-color: blue;
-}
+  position: relative;
+  width: 990px;
+  /* height: 200px; */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px; }
+  .keyboardContainer .keyboardRow {
+    display: block;
+    clear: both;
+    position: relative; }
+  .keyboardContainer .keyboardRow#row2 {
+    left: 18px; }
+  .keyboardContainer .keyboardRow#row3 {
+    left: 72px; }
+  .keyboardContainer .keyboardKey {
+    float: left;
+    margin: 4.5px;
+    width: 90px;
+    height: 90px;
+    background-color: blue; }
