@@ -31,15 +31,15 @@ function keyPressed(key) {
 
   //playSound('a');//right now, just ignore the key, play our single audio file
   
-  var buffer = webkit_sound_library[key];
+  var buffer = webkit_sound_library['a'];
   webkitPlaySound(buffer);
 
 }
 
 function webkitPlaySound(audio_buf) {
-  var source = context.createBufferSource();
+  var source = audio_context.createBufferSource();
   source.buffer = audio_buf;
-  source.connect(context.destination);
+  source.connect(audio_context.destination);
   source.noteOn(0);
 }
 function loadDataFromSource(key, url) {
@@ -72,8 +72,7 @@ $(document).ready(function() {
   // Handler for .ready() called.;
   preloadData();
   $(document).keydown(function(e) {
-      console.log(e.keyCode);
-      switch(e.keyCode) {
+      switch(e.keyCode) {;
       case 65   : keyPressed('a'); break;
       case 83   : keyPressed('s'); break;
       case 68   : keyPressed('d'); break;
