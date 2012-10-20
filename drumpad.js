@@ -32,8 +32,8 @@ function keyPressed(key) {
 $(document).ready(function() {
     // Handler for .ready() called.;
 
-  var handle = document.getElementById("soundhandle");
-  var handle2 = document.getElementById("soundhandle2");
+  var handle = document.getElementById("sound-a");
+  var handle2 = document.getElementById("sound-b");;
   //handle.play();
   sound_library['a'] = handle;
   sound_library['s'] = handle2;
