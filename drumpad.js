@@ -1,6 +1,6 @@
 
 var audio_context = new webkitAudioContext();
-var webkit_sound_libary = {};
+var webkit_sound_library = {};
 
 var channel_max = 20;
 var sound_library = {};
@@ -36,17 +36,27 @@ function keyPressed(key) {
 
 }
 
-
 function webkitPlaySound(audio_buf) {
   var source = context.createBufferSource();
   source.buffer = audio_buf;
   source.connect(context.destination);
   source.noteOn(0);
 }
+function loadDataFromSource(key, url) {
+  var request = new XMLHttpRequest();
+  request.open('get', url, true);
+  request.responseType = 'arraybuffer';
+  // decode asynchronously
+  request.onload = function() {
+  audio_context.decodeAudioData(request.response, function(buffer) {
+    console.log('audio decode');
+    webkit_sound_library[key] = buffer;
+    }, null);
+  }
+  request.send();
+}
 
-
-$(document).ready(function() {
-    // Handler for .ready() called.;
+function preloadData() {
 
   var handle = document.getElementById("sound-a");
   var handle2 = document.getElementById("sound-b");;
@@ -54,21 +64,22 @@ $(document).ready(function() {
   sound_library['a'] = handle;
   sound_library['s'] = handle2;
 
-  $.get('samples/bingos_left_change.mp3', function(data) {
-      console.log('Load was performed.');
-      webkit_sound_library['a'] = data;
-  });
+  loadDataFromSource("a", "samples/bingos_left_change.mp3");
+}
 
+
+$(document).ready(function() {
+  // Handler for .ready() called.;
+  preloadData();
   $(document).keydown(function(e) {
-
-    console.log(e.keyCode);
-    switch(e.keyCode) {
+      console.log(e.keyCode);
+      switch(e.keyCode) {
       case 65   : keyPressed('a'); break;
       case 83   : keyPressed('s'); break;
       case 68   : keyPressed('d'); break;
       case 70  : keyPressed('f'); break;
       break;
-    }
-  });
-    
+      }
+      });
+  
 });
