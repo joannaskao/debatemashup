@@ -76,17 +76,24 @@ body {
 	position: relative;
 }
 .keyboardRow#row2 {
-	left: 18px;
+	.keyboardKey {
+		left: 18px;
+	}
 }
 .keyboardRow#row3 {
-	left: $keySize * 0.8;
+	.keyboardKey {
+		left: $keySize * 0.8;
+	}
 }
 .keyboardRow#row4 {
-	left: $keySize * 2.8 + 6*$keyMargin;
+	.keyboardKey {
+		left: $keySize * 2.8 + 6*$keyMargin;
+	}
 }
 
 .keyboardKey {
 	float: left;
+	position: relative;
 	width: $keySize;
 	height: $keySize;
 	margin: $keyMargin;
