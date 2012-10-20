@@ -169,8 +169,27 @@ function mapBufferToList(buffer, key) {
   buffer_list[key].currentSource = null;
 }
 
+function isObamaKey(key) {
+
+  switch (key) {
+    case 'a':
+    case 's':
+    case 'd':
+      return false;
+    break;
+    case 'f':
+    case 'g':
+    case 'j':
+    case 'k':
+    case 'l':
+      return true;
+    break;
+  }
+  return true;
+}
+
 function preloadData() {
-;
+
   var bufferLoader = new BufferLoader(
     audio_context,
     [
