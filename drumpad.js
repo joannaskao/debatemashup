@@ -40,12 +40,14 @@ function timeToNextInterval() {
 }
 
 function metronome() {
-  var source = audio_context.createBufferSource();
-  source.buffer = buffer_list["120bpm"];
-  source.connect(audio_context.destination);
-  source.loop = true;
-  source.noteOn(0);
-  console.log("metronome");
+  if (buffer_list["120bpm"]) {
+    var source = audio_context.createBufferSource();
+    source.buffer = buffer_list["120bpm"];
+    source.connect(audio_context.destination);
+    source.loop = true;
+    source.noteOn(0);
+    console.log("metronome");
+  }
 }
 
 // ***** AudioContext Specific ********
@@ -70,7 +72,6 @@ function loadDataFromSource(key, url, callback) {
 // *********** Event Handling Code **********
 function playForKey(code) {
   var buffer = buffer_list[code];
-
 
   if(audio_context.currentTime  > buffer.finishTime) {
     var nextTimeStamp = timeToNextInterval();
