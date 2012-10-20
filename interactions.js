@@ -27,8 +27,10 @@ function init_interactions(){
       var isObama = true;
       if (isObama) {
         $('#facediv').css({background_color: '#00FF00'});
+       	$('#facediv').html('<img src="images/obama.png" />');
       } else {
         $('#facediv').css({background_color: '#00FFFF'});
+        $('#facediv').html('<img src="images/romney.png" />');
       }
 
       $('#facediv').css({opacity: '1.0'});
