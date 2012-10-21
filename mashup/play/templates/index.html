@@ -2,49 +2,105 @@
 <html>
 
 <head>
-	<link href = "{{STATIC_URL}}index.css" rel = "stylesheet" type="text/css" />
-	<title>Debate mashup woo hoo!</title>
+  <link href = "{{STATIC_URL}}index.css" rel = "stylesheet" type="text/css" />
+  <title>Debatify</title>
+  <script src="{{STATIC_URL}}buffer-loader.js"></script>
   <script src="{{STATIC_URL}}jquery-1.8.2.min.js"></script>
+  <script src="{{STATIC_URL}}jquery-ui-min.js"></script>
+  <script src="{{STATIC_URL}}spin.js"></script>
+  <script src="{{STATIC_URL}}interactions.js"></script>
   <script src="{{STATIC_URL}}drumpad.js"></script>
-
 </head>
 
 <body>
 
-<audio id="sound-a" src="{{STATIC_URL}}samples/bingos_left_change.mp3"></audio>
-<audio id="sound-s" src="{{STATIC_URL}}samples/bingos_left_change.mp3"></audio>
-<!--  The backend should populate these with a bunch of samples... -->
+<div id="topbar">
+  <div class="contentContainer">
+    <h1>Debatify</h1>
+    <p>
+      Remix the second U.S. presidential debate! Just click around the
+      soundboard to turn debate sound bites and highlights into song lyrics
+      and musical hooks. Barack Obama and Mitt Romney have never sounded so
+      good!
+    </p>
+    <p>
+      <i>Created by Joanna Kao, Jennifer Hollett, Dan Siegel, Max Rothman, Ying Tan, and Leon Lin at "Hack the Presidential Debate," hosted by Hacks and Hackers Boston/MIT Media Lab.</i>
+    </p>
 
-<h1>Debate mashup woo hoo!</h1>
-
-<div class="intro">
-  <p>This is a cool presidential debate mashup app thing.  Hit keys on
-  your keyboard to play sounds!</p>
-  <h3>Use asdf to play awesome sounds!!</h3>
+  </div>
 </div>
 
-<div class="imageContainer">
-  <img style="top: 0; left: 0; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 0; left: 100px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 0; left: 200px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 0; left: 300px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 0; left: 425px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 0; left: 525px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 0; left: 625px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 0; left: 725px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 100px; left: 0px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 100px; left: 100px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 100px; left: 200px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 100px; left: 300px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 100px; left: 425px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 100px; left: 525px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 100px; left: 625px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <img style="top: 100px; left: 725px; width: 100px; height: 100px" src="{{STATIC_URL}}button.jpg"></img>
-  <div style="top: 0px; left: 45px;"><p>Q</p></div>
-  <div style="top: 20px; left: 25px;"><p>"Binders<br>full of<br>women"</p></div>
+<div id="loadingscreen"></div>
+<div id="facediv"></div>
+
+<div id="keyboardContainer">
+  <div class="contentContainer">
+    <div class="keyboardRow" id="row1">
+      <div class="keyboardKey" id="keyQ"><span class="keyLetter">Q</span>
+        <div class="keyLabel"></div>
+      </div>
+      <div class="keyboardKey" id="keyW"><span class="keyLetter">W</span>
+        <div class="keyLabel"></div>
+      </div>
+      <div class="keyboardKey" id="keyE"><span class="keyLetter">E</span>
+        <div class="keyLabel"></div>
+      </div>
+      <div class="keyboardKey" id="keyR"><span class="keyLetter">R</span></div>
+      <div class="keyboardKey" id="keyT"><span class="keyLetter">T</span></div>
+      <div class="keyboardKey" id="keyY"><span class="keyLetter">Y</span></div>
+      <div class="keyboardKey" id="keyU"><span class="keyLetter">U</span></div>
+      <div class="keyboardKey" id="keyI"><span class="keyLetter">I</span></div>
+      <div class="keyboardKey" id="keyO"><span class="keyLetter">O</span></div>
+      <div class="keyboardKey" id="keyP"><span class="keyLetter">P</span>
+        <div class="keyLabel">I don't look at my pension</div>
+      </div>
+    </div>
+    <div class="keyboardRow" id="row2">
+      <div class="keyboardKey" id="keyA"><span class="keyLetter">A</span>
+        <div class="keyLabel">I know what it takes</div>
+      </div>
+      <div class="keyboardKey" id="keyS"><span class="keyLetter">S</span>
+        <div class="keyLabel">binders full of women</div>
+      </div>
+      <div class="keyboardKey" id="keyD"><span class="keyLetter">D</span>
+        <div class="keyLabel">but gosh</div>
+      </div>
+      <div class="keyboardKey" id="keyF"><span class="keyLetter">F</span>
+        <div class="keyLabel">Jobs1</div>
+      </div>
+      <div class="keyboardKey" id="keyG"><span class="keyLetter">G</span>
+        <div class="keyLabel">You'll get your chance</div>
+      </div>
+      <div class="keyboardKey" id="keyH"><span class="keyLetter">H</span>
+        <div class="keyLabel">big bird</div>
+      </div>
+      <div class="keyboardKey" id="keyJ"><span class="keyLetter">J</span>
+        <div class="keyLabel">push on this issue</div>
+      </div>
+      <div class="keyboardKey" id="keyK"><span class="keyLetter">K</span>
+        <div class="keyLabel">not as big as yours</div>
+      </div>
+      <div class="keyboardKey" id="keyL"><span class="keyLetter">L</span>
+        <div class="keyLabel">gang bangers</div>
+      </div>
+    </div>
+    <div class="keyboardRow" id="row3">
+      <div class="keyboardKey" id="keyZ"><span class="keyLetter">Z</span></div>
+      <div class="keyboardKey" id="keyX"><span class="keyLetter">X</span></div>
+      <div class="keyboardKey" id="keyC"><span class="keyLetter">C</span></div>
+      <div class="keyboardKey" id="keyV"><span class="keyLetter">V</span></div>
+      <div class="keyboardKey" id="keyB"><span class="keyLetter">B</span></div>
+      <div class="keyboardKey" id="keyN"><span class="keyLetter">N</span></div>
+      <div class="keyboardKey" id="keyM"><span class="keyLetter">M</span></div>
+    </div>
+
+    <div class="keyboardRow" id="row4">
+      <div class="keyboardKey" id="toggle_music">
+        <div class="spacelabel">Play</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>
 </html>
-
-

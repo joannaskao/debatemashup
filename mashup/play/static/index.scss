@@ -1,0 +1,126 @@
+$keySize: 90px;
+$keyMargin: $keySize * 0.05;
+$leftMargin: 2*$keyMargin;
+$faintColor: #CCD1DB;
+$borderColor: #60769C;
+$borderWidth: 1pt;
+$topbarHeight: 200px;
+
+@mixin roundedCorners {
+  $radius: $keySize * 0.07;
+
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  
+  border-style: solid;
+  border-width: $borderWidth;
+}
+
+body {
+	font-family: Helvetica, Arial;
+	margin: 0px;
+	padding: 0px;
+}
+
+#topbar {
+	width: 100%;
+	background-color: $faintColor;
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: $topbarHeight;
+	z-index: -1;
+}
+
+#loadingscreen{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, 0.85);
+    z-index:10;
+}
+
+.spacelabel{
+	font-size:80px;
+}
+
+#facediv{
+	width:100%;
+	height:500px;
+	z-index:3;
+}
+
+#facediv img{
+	width:1000px;
+	height:1000px;
+}
+
+#keyboardContainer {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+	top: $topbarHeight + 2*$keyMargin;
+	z-index: -1;
+}
+
+.contentContainer {
+	width: 11*$keySize + 20*$keyMargin;
+	margin: 0px auto;
+}
+		
+.keyboardRow {
+	display: block;
+	clear: both;
+	position: relative;
+}
+.keyboardRow#row2 {
+	.keyboardKey {
+		left: 18px;
+	}
+}
+.keyboardRow#row3 {
+	.keyboardKey {
+		left: $keySize * 0.8;
+	}
+}
+.keyboardRow#row4 {
+	.keyboardKey {
+		left: $keySize * 2.8 + 6*$keyMargin;
+	}
+}
+
+.keyboardKey {
+	float: left;
+	position: relative;
+	width: $keySize;
+	height: $keySize;
+	margin: $keyMargin;
+	padding: 0px;
+	
+	background-color: $faintColor;
+	border-color: $borderColor;
+	@include roundedCorners;
+	
+	&#toggle_music {
+		width: 5*$keySize + 8*$keyMargin;
+	}
+	
+	.keyLetter {
+		position: relative;
+		padding: 5px;
+		font-weight: bold;
+	}
+	
+	.keyLabel {
+		position: relative;
+		padding: 5px;
+		
+		font-size: smaller;
+	}
+}

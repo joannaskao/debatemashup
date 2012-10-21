@@ -1,29 +1,91 @@
-h1 {
-	font-size: 36pt;
-	color: red;
-	text-align: center;
+body {
+  font-family: Helvetica, Arial;
+  margin: 0px;
+  padding: 0px; }
+
+#topbar {
+  width: 100%;
+  background-color: #ccd1db;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 200px;
+  z-index: -1; }
+
+#facediv{
+  position:fixed;
+  top:200px;
+  left:450px;
+  width:100%;
+  height:500px;
+  z-index:3;
 }
 
-.intro p {
-	font-size: 14pt;
-	text-align: center;
+#loadingscreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10; }
+
+.spacelabel{
+  font-size: 40px;
+  text-align:center;
+  text-transform:uppercase;
+  padding:20px;
 }
 
-.imageContainer {
+#keyboardContainer {
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  top: 209px;
+  z-index: -1; }
+
+.contentContainer {
+  width: 1080px;
+  margin: 0px auto; }
+
+.keyboardRow {
+  display: block;
+  clear: both;
+  position: relative; }
+
+.keyboardRow#row2 .keyboardKey {
+  left: 18px; }
+
+.keyboardRow#row3 .keyboardKey {
+  left: 72px; }
+
+.keyboardRow#row4 .keyboardKey {
+  left: 279px; }
+
+.keyboardKey {
+  float: left;
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 4.5px;
+  padding: 0px;
+  background-color: #ccd1db;
+  border-color: #60769c;
+  border-radius: 6.3px;
+  -moz-border-radius: 6.3px;
+  -webkit-border-radius: 6.3px;
+  border-style: solid;
+  border-width: 1pt; }
+  .keyboardKey#toggle_music {
+    width: 486px; }
+  .keyboardKey .keyLetter {
     position: relative;
-    width: 800px;
-    height: 200px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 100px;
-}
-.imageContainer img {
-    position: absolute;
-    float: center;
-}
-
-.imageContainer div {
-    position: absolute;
-    color: white;
-    text-align: center;
-}
+    padding: 5px;
+    font-weight: bold; }
+  .keyboardKey .keyLabel {
+    position: relative;
+    padding: 5px;
+    font-size: smaller; }
